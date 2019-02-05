@@ -45,13 +45,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="TypeMock, Version=8.6.5.10, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="TypeMock, Version=8.6.8.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Source\Typemock\Isolator\Output\AnyCPU\Debug\PublicAssemblies\TypeMock.dll</HintPath>
+      <HintPath>tm\TypeMock.dll</HintPath>
     </Reference>
-    <Reference Include="Typemock.ArrangeActAssert, Version=8.6.5.10, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+    <Reference Include="Typemock.ArrangeActAssert, Version=8.6.8.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Source\Typemock\Isolator\Output\AnyCPU\Debug\PublicAssemblies\Typemock.ArrangeActAssert.dll</HintPath>
+      <HintPath>tm\Typemock.ArrangeActAssert.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
