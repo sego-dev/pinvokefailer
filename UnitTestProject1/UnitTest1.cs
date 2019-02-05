@@ -36,7 +36,7 @@ namespace UnitTestProject1
 
         }
 
-        [Test]
+       // [Test]
         public void TestViewer()
         {
             var fake = Isolate.Fake.NextInstance<UnderTest>();
@@ -47,7 +47,7 @@ namespace UnitTestProject1
             Assert.IsTrue(underTest.GetBool());
         }
 
-        [Test]
+        //[Test]
         public void TestMethodGetIl()
         {
             var t = typeof(UnitTest1).GetMethod("ShouldBeFailedWithDotCover");
@@ -72,7 +72,7 @@ namespace UnitTestProject1
             }
         }
 
-        [Test]
+        //[Test]
         public void TestMethod2()
         {
             var t = typeof(UnitTest1).GetNestedTypes(BindingFlags.NonPublic);
@@ -125,7 +125,7 @@ namespace UnitTestProject1
         }
 
 
-        [Test]
+        //[Test]
         public void ShouldBeFailed()
         {
 
@@ -266,7 +266,7 @@ namespace UnitTestProject1
 
         }
 
-        [Test]
+        //[Test]
         public void WithoutCover()
         {
             Console.WriteLine(Assembly.GetExecutingAssembly().Modules.First()
