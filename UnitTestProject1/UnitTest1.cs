@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
 using NUnit.Framework;
 using PInvokeFailer;
 using TypeMock.ArrangeActAssert;
@@ -32,8 +34,110 @@ namespace UnitTestProject1
 
 
             Assert.AreEqual(2, result);
+        }
+        delegate void TestMyDelegate(); // 1. Объявляем делегат
+        [Test]
+        public void TestAnonType()
+        {
+            var a = new {b = 1, c = ""};
+            var b = new UnderTest();
+            var c = a.GetType();
+            var d = b.GetType();
+
+            TestMyDelegate tmd;
+            tmd = IsClosure;
+
+            var tt = tmd.GetType();
+            var fn = tt.FullName;
+            Assert.AreEqual(tt, "");
+            Assert.AreEqual(a,b);
+            Assert.AreEqual(c, d);
+        }
+
+        [Test]
+        public void TestMethod1()
+        {
+            BenchmarkRunner.Run<UnitTest1>();
+        }
+
+        [Benchmark]
+        public void BenchmarksStringByChar()
+        {
+            var a = new { b = 1, c = "" };
+            var b = new UnderTest();
+            for (int i = 0; i < 10000; i++)
+            {
+                IsAnon(a.GetType().FullName);
+                IsAnon(b.GetType().FullName);
+            }
+            
+        }
+
+        [Benchmark]
+        public void BenchmarksStringContains()
+        {
+            var a = new { b = 1, c = "" };
+            var b = new UnderTest();
+            for (int i = 0; i < 10000; i++)
+            {
+                IsAnon2(a.GetType().FullName);
+                IsAnon2(b.GetType().FullName);
+            }
+
+        }
+
+        [Benchmark]
+        public void BenchmarksStringStartWith()
+        {
+            var a = new { b = 1, c = "" };
+            var b = new UnderTest();
+            for (int i = 0; i < 10000; i++)
+            {
+                IsAnon3(a.GetType().FullName);
+                IsAnon3(b.GetType().FullName);
+            }
+
+        }
+
+        public bool IsAnon(string typeName)
+        {
+            return typeName[0] == '<' && typeName[1] == '>';
+        }
+
+        public bool IsAnon2(string typeName)
+        {
+            return typeName.Contains("<>");
+        }
+
+        public bool IsAnon3(string typeName)
+        {
+            return typeName.StartsWith("<>");
+        }
 
 
+        public void IsClosure()
+        {
+
+        }
+
+        //[Benchmark()]
+        public void Benchmarks()
+        {
+            
+            var fake = Isolate.Fake.Instance<UnderTest>();
+            Isolate.WhenCalled(() => fake.GetBool()).WillReturn(true);
+            for (int i = 0; i < 100; i++)
+            {
+                Isolate.WhenCalled(() => fake.GetBool()).WillReturn(false);
+                Isolate.WhenCalled(() => fake.GetBool()).WillReturn(true);
+            }
+            
+            Assert.IsTrue(fake.GetBool());
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.IsFalse(fake.GetBool());
+                Assert.IsTrue(fake.GetBool());
+            }
         }
 
        // [Test]
